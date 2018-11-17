@@ -1,48 +1,48 @@
 const int tempo = 1000;
 
-const int buzzer = 2;
+const int buzzerPower = 11;
+const int buzzerGround = 10;
 
-const int groundpin = A4;             // negativo
-const int powerpin = A5;              // positivo
-const int xpin = 11;                  // x - acelerometro
-const int ypin = 10;                  // y - acelerometro
-const int zpin = 9;                   // z - acelerometro
+const int groundpin = 10;             // negativo
+//const int powerpin = A5;              // positivo
+
+const int xpin = A5;                  // x - acelerometro
+const int ypin = A4;                  // y - acelerometro
+const int zpin = A3;                   // z - acelerometro
 
 void setup() {
 
   Serial.begin(9600);
   
-  pinMode(buzzer, OUTPUT);
+  pinMode(buzzerPower, OUTPUT);
 
   // definir o ground e power para o acelerometro
-  pinMode(groundpin, OUTPUT);
-  pinMode(powerpin, OUTPUT);
-  digitalWrite(groundpin, LOW);
-  digitalWrite(powerpin, HIGH);
+  pinMode(buzzerGround, OUTPUT);
+  //pinMode(powerpin, OUTPUT);
+  digitalWrite(buzzerGround, LOW);
+  //digitalWrite(powerpin, HIGH);
 }
 
-void dispararBuzzer(int ypin) {
-
+void dispararBuzzer(int ypin) 
+{
   if(ypin <= 400) {
-    tone(buzzer, 5000);
+    tone(buzzerPower, 5000);
   } else if(ypin <= 450) {
-    tone(buzzer, 3000);
+    tone(buzzerPower, 3000);
     delay(100);
-    noTone(buzzer);
+    noTone(buzzerPower);
     delay(100);
   } else {
-    tone(buzzer, 1000);
+    tone(buzzerPower, 1000);
     delay(1000);
-    noTone(buzzer);
+    noTone(buzzerPower);
     delay(1000);
   }
   
 }
 
-void loop() {
-  
-  // dispararBuzzer();
-
+void loop() 
+{
   Serial.print("x = ");
   Serial.print(analogRead(xpin));
   Serial.print("\t");
@@ -54,6 +54,5 @@ void loop() {
   Serial.println();
   delay(tempo);
 
-  dispararBuzzer(analogRead(ypin));
-  
+  //dispararBuzzer(analogRead(ypin));
 }
